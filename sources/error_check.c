@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   error_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/19 12:34:43 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/03/19 15:35:34 by sde-cama         ###   ########.fr       */
+/*   Created: 2023/03/19 14:46:28 by sde-cama          #+#    #+#             */
+/*   Updated: 2023/03/19 15:25:38 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	ft_check_main_args(int argc, char **argv)
 {
-	if (ft_check_main_args(argc, argv))
+	if (argc > 1 && *argv)
+	{
+		ft_print_error_msg("you cannot run minishell with arguments");
 		return (ERROR_CODE);
-	// depois excluir if da envp
-	if (!envp)
-		return (ERROR_CODE);
+	}
 	return (SUCCESS_CODE);
 }

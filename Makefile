@@ -6,6 +6,8 @@ CC	= cc
 CFLAGS	= -Wall -Werror -Wextra -g3
 
 SRCS = ./sources/minishell.c			\
+		./sources/error_check.c			\
+		./sources/error_messages.c			\
 
 
 OBJS	= $(SRCS:%.c=%.o)

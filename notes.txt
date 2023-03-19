@@ -1,7 +1,7 @@
 fluxo:
 
 main:
-0. Fora da função main cria a variavel global de exit code... ela vai ser usada em toda a aplicação (estudar pq tem que ser global)
+0. Fora da função main cria a variavel global que será uma struct com o exit code e outros... ela vai ser usada em toda a aplicação (estudar pq tem que ser global)
 1. checa os argumentos:
 	- tem que ser 1 pq a função não recebe outros args, somente ./minishell
 2. Trata as variaveis de ambiente:
