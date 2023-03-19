@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:20 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/03/19 15:37:41 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:07:09 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,18 @@
 // EXTERNAL LIBRARIES
 
 // FUNCTIONS
+/**
+ * @brief Check quantity of arguments for main function.
+ * @param argc quantity of arguments received.
+ * @param argv arguments received.
+ * @return If too many arguments returns 1.
+**/
 int		ft_check_main_args(int argc, char **argv);
+
+/**
+ * @brief Prints error message to stderror.
+ * @param msg message to be printed.
+**/
 void	ft_print_error_msg(char *msg);
 
 #endif
