@@ -1,0 +1,28 @@
+fluxo:
+
+main:
+0. Fora da função main cria a variavel global de exit code... ela vai ser usada em toda a aplicação (estudar pq tem que ser global)
+1. checa os argumentos:
+	- tem que ser 1 pq a função não recebe outros args, somente ./minishell
+2. Trata as variaveis de ambiente:
+	- salvar tudo em uma hash table (dictionary feito com struct)
+	- salvar variavel de ambiente PATH já separada
+3. Executa o minishell (inicia o reading):
+	- Criar struct para estruturar dados
+	- setar sinais/eventos
+	- cria o prompt (o que vai aparecer como prompt do minishel)
+		-pegar variaveis de ambiente user, hostname e cwd
+		- cria uma struct com os dados do prompt
+	- executa readline
+	- faz tokenização
+		-Faz tratamento de espaços
+		-sanitiza aspas... e salva token
+		-faz tratamento de espaço
+		- sanitiza aspas... salva token
+		- converte variavel de ambiente
+	- salva no historico o que foi escrito
+	- Faz o parse do token
+	- Tenta executar
+	- da free na estrutura de dados
+  - retorna exit code de sucesso para a main
+	
