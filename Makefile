@@ -16,7 +16,7 @@ OBJS	= $(SRCS:%.c=%.o)
 all:	$(NAME) ${LIB}
 
 $(NAME):	${LIB} $(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) -o $@ -L $(LIBFT_PATH) -I $(INCLUDES_PATH) -I $(LIBFT_PATH) -lft
+			$(CC) $(CFLAGS) $(OBJS) -o $@ -L $(LIBFT_PATH) -lreadline -I $(INCLUDES_PATH) -I $(LIBFT_PATH) -lft
 
 %.o:		%.c
 			$(CC) $(CFLAGS) -I $(INCLUDES_PATH) -I $(LIBFT_PATH) -o $@ -c $<

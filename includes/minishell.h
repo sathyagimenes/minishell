@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:20 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/03/19 17:31:30 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/03/25 16:05:54 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 #include <libft.h>
 
 // EXTERNAL LIBRARIES
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 // STRUCTS
 /**
@@ -41,10 +44,13 @@ typedef struct s_env
 /**
  * @brief Structure that holds the main data.
  * @param env Structure that holds environment data.
+ * @param buffer Holds the line read.
 **/
 typedef struct s_data
 {
 	t_env	env;
+	char	*buffer;
+	char	*prompt;
 }	t_data;
 
 // FUNCTIONS
