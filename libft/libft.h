@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:49:49 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/02/12 19:50:34 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:53:15 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ int		type_c(int c);
 int		type_u(unsigned long number);
 int		type_p(unsigned long number);
 long	ft_atol(const char *nptr);
+int		ft_strchr_pos(char *s, char c);
+void	ft_free_ptr(void **ptr);
 
-// =============================================================================
+
 // Linked List
-// =============================================================================
-
 /**
  * @brief Basic structure of a linked list node.
  * @param content The data contained in the node.

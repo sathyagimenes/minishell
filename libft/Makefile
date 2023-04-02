@@ -47,7 +47,9 @@ SRCS	= ft_isalpha.c	\
 		ft_lastnode.c	\
 		ft_getnode.c	\
 		ft_dellist.c	\
-		ft_delnode.c
+		ft_delnode.c	\
+		ft_strchr_pos.c	\
+		ft_free_ptr.c
 
 UTILS	= ./utils/printf_type_c.c	\
 		./utils/printf_type_d_i.c	\

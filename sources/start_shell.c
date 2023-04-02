@@ -6,15 +6,15 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/03/25 16:38:24 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/02 19:28:29 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_data(t_data *data);
-void	ft_create_prompt(t_data *data);
-void	ft_free_data(t_data *data);
+static void	ft_init_data(t_data *data);
+static void	ft_create_prompt(t_data *data);
+void		ft_free_data(t_data *data);
 
 int ft_start_shell(t_data *data)
 {
@@ -22,45 +22,56 @@ int ft_start_shell(t_data *data)
 	{
 		ft_init_data(data);
 		ft_create_prompt(data);
+		//configura os sinais antes do readline
 		data->buffer = readline(data->prompt);
 		if (data->buffer == NULL)
 		{
 			ft_free_data(data);
 			exit(0);
 		}
-		/*
-		- Criar struct para estruturar dados
-		- setar sinais/eventos
-		- cria o prompt (o que vai aparecer como prompt do minishel)
-			-pegar variaveis de ambiente user, hostname e cwd
-			- cria uma struct com os dados do prompt
-		- executa readline
-		- faz tokenização
-		- salva no historico o que foi escrito
-		- Faz o parse do token
-		- Tenta executar
-		- da free na estrutura de dados
-		*/
+		//tokeniza buffer e executa
+		// if (data->buffer != NULL)
+		// {
+		// 	ft_free_data(data);
+		// 	exit(0);
+		// }
+		free(data->prompt);
 	}
-	ft_putendl_fd(data->env.envp[0], 1); //apagar
 	return (SUCCESS_CODE);
 }
 
-void	ft_init_data(t_data *data)
+static void	ft_init_data(t_data *data)
 {
 	data->buffer = NULL;
 	data->prompt = NULL;
 }
 
-void	ft_create_prompt(t_data *data)
+static void	ft_create_prompt(t_data *data)
 {
-	data->prompt = (char *)malloc(sizeof(char) * 12);
-	ft_strlcpy(data->prompt, "minishell: ", 11);
+	t_hash_item	*user;
+	t_hash_item	*hostname;
+	t_hash_item	*cwd;
+	size_t		len;
+
+	user = ft_get_value(data->env.table, "USER");
+	hostname = ft_get_value(data->env.table, "USERNAME");
+	cwd = ft_get_value(data->env.table, "PWD");
+	len = ft_strlen(user->value) + ft_strlen(AT) + ft_strlen(hostname->value) + ft_strlen(COLON) + ft_strlen(cwd->value) + ft_strlen(PROMPT_SIGN) + ft_strlen(GREEN) + ft_strlen(RESET) + ft_strlen(PURPLE) + ft_strlen(RESET);
+	data->prompt = (char *)malloc(sizeof(char) * len);
+	ft_strlcpy(data->prompt, GREEN, len);
+	ft_strlcat(data->prompt, user->value, len);
+	ft_strlcat(data->prompt, AT, len);
+	ft_strlcat(data->prompt, hostname->value, len);
+	ft_strlcat(data->prompt, RESET, len);
+	ft_strlcat(data->prompt, COLON, len);
+	ft_strlcat(data->prompt, PURPLE, len);
+	ft_strlcat(data->prompt, cwd->value, len);
+	ft_strlcat(data->prompt, RESET, len);
+	ft_strlcat(data->prompt, PROMPT_SIGN, len);
 }
 
 void	ft_free_data(t_data *data)
 {
-	//melhorar esse free
-	free(data->buffer);
+	ft_free_env(&data->env);
 	free(data->prompt);
 }

@@ -26,3 +26,8 @@ OK 1. checa os argumentos:
 	- da free na estrutura de dados
   - retorna exit code de sucesso para a main
 	
+
+TO-DO
+- faltou:
+	-arrumar pwd do prompt
+	-rever hostname
