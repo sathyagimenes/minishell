@@ -16,6 +16,8 @@ SRCS = ./sources/minishell.c				\
 		./sources/env_table/insert_item.c	\
 		./sources/env_table/get_item.c		\
 		./sources/free_env.c				\
+		./sources/tokenizer.c				\
+		./sources/executor.c				\
 
 
 

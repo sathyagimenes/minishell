@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/03 20:20:44 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:53:11 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int ft_start_shell(t_data *data)
 			ft_free_data(data);
 			exit(0);
 		}
-		//tokeniza buffer e executa
+		ft_tokenizer(data); //tokeniza buffer e executa
 		add_history(data->buffer);
+		//fazer parser
+		ft_handle_exec(data);
 		// if (data->buffer != NULL)
 		// {
 		// 	ft_free_data(data);

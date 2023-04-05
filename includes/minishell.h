@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:20 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/02 19:17:15 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:49:16 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ typedef struct s_env
 	char	**path;
 }	t_env;
 
+typedef struct s_exec
+{
+	char	*cmd;
+	char	**argv;
+}	t_exec;
+
 /**
  * @brief Structure that holds the main data.
  * @param env Structure that holds environment data.
@@ -95,6 +101,7 @@ typedef struct s_data
 	t_env	env;
 	char	*buffer;
 	char	*prompt;
+	t_exec	exec;
 }	t_data;
 
 // FUNCTIONS
@@ -179,5 +186,8 @@ char	**ft_split_env(char *envp);
  * @param split_envp Array to be freed.
 **/
 void	ft_free_split_env(char ***split_envp);
+
+int		ft_tokenizer(t_data *data);
+void	ft_handle_exec(t_data *data);
 
 #endif
