@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:24:55 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/05 22:48:37 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/05 23:04:57 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_exec(t_data *data)
 	if (pid != 0)
 	{
 		//verificar se precisa fazer algo no pai
-		waitpid(pid, &exit_code, 0);//verificar se faz o waitpid aqui e como salvar o exit code
+		waitpid(pid, &exit_code, 0);//mudar waitpid de lugar. tem que fazer ele fora e depois de rodas todos os processos filhos e pais. faz antes de voltar pra função principal e faz pra todos os pids... isso por conta do compoortamento assincrono do shell/pipes. Ele utiliza o kork pra rodar tudo de uma vez e depois faz a espera
 		if (WIFEXITED(exit_code))
 			exit_code = WEXITSTATUS(exit_code);
 	}
