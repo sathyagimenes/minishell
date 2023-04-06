@@ -6,13 +6,13 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:24:55 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/04 21:57:13 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:48:37 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_exec(t_data *data);
+static int	ft_exec(t_data *data);
 static void	ft_exec_child(t_exec *exec, t_env *env);
 static char	*ft_build_cmds(t_data *data, char *cmd);
 
@@ -22,12 +22,14 @@ void	ft_handle_exec(t_data *data)
 	ft_exec(data);
 }
 
-static void	ft_exec(t_data *data)
+static int	ft_exec(t_data *data)
 {
 	int		pid;
+	int		exit_code;
 
 	//verificar se tem pipe ou builtin e fazer exec diferente
 	// build comd com path
+	exit_code = SUCCESS_CODE;
 	data->exec.cmd = ft_build_cmds(data, data->exec.argv[0]);
 	pid = fork();
 	if (pid == -1)
@@ -37,7 +39,11 @@ static void	ft_exec(t_data *data)
 	if (pid != 0)
 	{
 		//verificar se precisa fazer algo no pai
+		waitpid(pid, &exit_code, 0);//verificar se faz o waitpid aqui e como salvar o exit code
+		if (WIFEXITED(exit_code))
+			exit_code = WEXITSTATUS(exit_code);
 	}
+	return (exit_code);
 }
 
 static void	ft_exec_child(t_exec *exec, t_env *env)
@@ -50,6 +56,7 @@ static void	ft_exec_child(t_exec *exec, t_env *env)
 		ft_printf("%s \n", "tentou executar, mas falhou");
 		//dar free?
 		//setar o exit code?
+		exit(1);
 	}
 }
 
@@ -59,10 +66,10 @@ static char	*ft_build_cmds(t_data *data, char *cmd)
 	char	*cmd_line;
 	int		i;
 
-	if (ft_strchr(cmd, '.') || ft_strchr(cmd, '/'))
+	if (!(ft_strchr(cmd, '.')) || !(ft_strchr(cmd, '/')))
 	{
 		i = 0;
-		while (*data->env.path[i])
+		while (data->env.path[i])
 		{
 			full_path = ft_strjoin(data->env.path[i], "/");
 			cmd_line = ft_strjoin(full_path, cmd);
