@@ -6,44 +6,45 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:24:55 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/05 23:04:57 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:20:10 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_exec(t_data *data);
+static void	ft_exec(t_data *data);
 static void	ft_exec_child(t_exec *exec, t_env *env);
 static char	*ft_build_cmds(t_data *data, char *cmd);
+static int	ft_wait_execs(t_data *data);
 
 void	ft_handle_exec(t_data *data)
 {
 	//fazer redirecionamento... é pipe?...
 	ft_exec(data);
+	data->exit_code = ft_wait_execs(data);
 }
 
-static int	ft_exec(t_data *data)
+static void	ft_exec(t_data *data)
 {
-	int		pid;
-	int		exit_code;
+	pid_t	*pid;
 
 	//verificar se tem pipe ou builtin e fazer exec diferente
 	// build comd com path
-	exit_code = SUCCESS_CODE;
 	data->exec.cmd = ft_build_cmds(data, data->exec.argv[0]);
-	pid = fork();
-	if (pid == -1)
+	pid = (pid_t *)malloc(sizeof(pid_t));
+	*pid = fork();
+	if (*pid == -1)
 		exit(1);
-	if (pid == 0)
-		ft_exec_child(&data->exec, &data->env);
-	if (pid != 0)
+	if (*pid == 0)
 	{
-		//verificar se precisa fazer algo no pai
-		waitpid(pid, &exit_code, 0);//mudar waitpid de lugar. tem que fazer ele fora e depois de rodas todos os processos filhos e pais. faz antes de voltar pra função principal e faz pra todos os pids... isso por conta do compoortamento assincrono do shell/pipes. Ele utiliza o kork pra rodar tudo de uma vez e depois faz a espera
-		if (WIFEXITED(exit_code))
-			exit_code = WEXITSTATUS(exit_code);
+		ft_free_ptr((void **)&pid);
+		ft_exec_child(&data->exec, &data->env);
 	}
-	return (exit_code);
+	if (*pid != 0)
+	{
+		ft_add_queue(&data->pid_list, pid);
+		//verificar se precisa fazer mais alguma coisa no pai
+	}
 }
 
 static void	ft_exec_child(t_exec *exec, t_env *env)
@@ -81,4 +82,18 @@ static char	*ft_build_cmds(t_data *data, char *cmd)
 		}
 	}
 	return (ft_strdup(cmd));
+}
+
+static int	ft_wait_execs(t_data *data)
+{
+	int	new_exit_code;
+
+	while (data->pid_list)
+	{
+		waitpid((*(pid_t *)data->pid_list->content), &new_exit_code, 0);
+		if (WIFEXITED(new_exit_code))
+			new_exit_code = WEXITSTATUS(new_exit_code);
+		data->pid_list = data->pid_list->next;
+	}
+	return (new_exit_code);
 }

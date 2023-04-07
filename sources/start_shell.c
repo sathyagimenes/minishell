@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/04 21:53:11 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:21:13 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	ft_init_data(t_data *data)
 {
 	data->buffer = NULL;
 	data->prompt = NULL;
+	data->pid_list = NULL;
 }
 
 static void	ft_create_prompt(t_data *data)

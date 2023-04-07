@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:20 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/05 22:50:55 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:20:49 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ typedef struct s_exec
 typedef struct s_data
 {
 	t_env	env;
+	int		exit_code;
 	char	*buffer;
 	char	*prompt;
 	t_exec	exec;
+	t_list	*pid_list;
 }	t_data;
 
 // FUNCTIONS

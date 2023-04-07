@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 01:49:49 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/01 18:53:15 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 10:56:02 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,14 @@ void	ft_dellist(t_list **list);
  * @param node to be deleted.
 **/
 void	ft_delnode(t_list *node);
-// void	ft_sortlist(t_list *list, int start, int end);
+
+/**
+ * @brief Adds a new node at the end of the list.
+ * @param content to be saved on new node.
+ * @param list where to save the node.
+**/
+void	ft_add_queue(t_list **list, void *content);
+
+
 
 #endif
