@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 11:21:13 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:56:54 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ft_init_data(t_data *data);
 static void	ft_create_prompt(t_data *data);
-void		ft_free_data(t_data *data);
 
 int ft_start_shell(t_data *data)
 {
@@ -26,7 +25,7 @@ int ft_start_shell(t_data *data)
 		data->buffer = readline(data->prompt);
 		if (data->buffer == NULL)
 		{
-			ft_free_data(data);
+			ft_free_data(data, TRUE);
 			exit(0);
 		}
 		ft_tokenizer(data); //tokeniza buffer e executa
@@ -38,7 +37,7 @@ int ft_start_shell(t_data *data)
 		// 	ft_free_data(data);
 		// 	exit(0);
 		// }
-		free(data->prompt);
+		ft_free_data(data, FALSE);
 	}
 	return (SUCCESS_CODE);
 }
@@ -72,10 +71,4 @@ static void	ft_create_prompt(t_data *data)
 	ft_strlcat(data->prompt, cwd->value, len);
 	ft_strlcat(data->prompt, RESET, len);
 	ft_strlcat(data->prompt, PROMPT_SIGN, len);
-}
-
-void	ft_free_data(t_data *data)
-{
-	ft_free_env(&data->env);
-	free(data->prompt);
 }

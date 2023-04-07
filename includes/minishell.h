@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 12:54:20 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 11:20:49 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:49:39 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # define COLON_CHAR ':'
 # define EQUAL_CHAR '='
 
-# define PURPLE "\033[0;34m"
-# define RESET "\033[0m"
-# define GREEN "\033[0;32m"
+# define PURPLE "\001\033[0;34m\002"
+# define RESET "\001\033[0m\002"
+# define GREEN "\001\033[0;32m\002"
 
 # define TABLE_SIZE 503
 
@@ -80,9 +80,9 @@ typedef struct s_hash_table
 **/
 typedef struct s_env
 {
-	char	**envp;
+	char			**envp;
 	t_hash_table	*table;
-	char	**path;
+	char			**path;
 }	t_env;
 
 typedef struct s_exec
@@ -192,5 +192,9 @@ void	ft_free_split_env(char ***split_envp);
 
 int		ft_tokenizer(t_data *data);
 void	ft_handle_exec(t_data *data);
+
+void	ft_free_data(t_data *data, t_bool free_all);
+
+t_bool	is_builtin(t_data *data, t_exec *exec);
 
 #endif

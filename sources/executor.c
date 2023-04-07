@@ -6,14 +6,14 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:24:55 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 11:20:10 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:13:13 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	ft_exec(t_data *data);
-static void	ft_exec_child(t_exec *exec, t_env *env);
+static void	ft_exec_child(t_data *data, t_exec *exec);
 static char	*ft_build_cmds(t_data *data, char *cmd);
 static int	ft_wait_execs(t_data *data);
 
@@ -29,8 +29,9 @@ static void	ft_exec(t_data *data)
 	pid_t	*pid;
 
 	//verificar se tem pipe ou builtin e fazer exec diferente
-	// build comd com path
 	data->exec.cmd = ft_build_cmds(data, data->exec.argv[0]);
+	if (is_builtin(data, &data->exec) || !data->exec.argv[0]) // melhorar... se for pipe tem que continuar pq
+		return ;											// o built in não pode barrar as outras execs
 	pid = (pid_t *)malloc(sizeof(pid_t));
 	*pid = fork();
 	if (*pid == -1)
@@ -38,7 +39,7 @@ static void	ft_exec(t_data *data)
 	if (*pid == 0)
 	{
 		ft_free_ptr((void **)&pid);
-		ft_exec_child(&data->exec, &data->env);
+		ft_exec_child(data, &data->exec);
 	}
 	if (*pid != 0)
 	{
@@ -47,17 +48,20 @@ static void	ft_exec(t_data *data)
 	}
 }
 
-static void	ft_exec_child(t_exec *exec, t_env *env)
+static void	ft_exec_child(t_data *data, t_exec *exec)
 {
 	//refazer a envp usando a hash table, pq pode ser que user tenha alterado alguma variavel anteriormente
 	//set redirection do input/output
-	if (execve(exec->cmd, exec->argv, env->envp) == -1)
+	if (!is_builtin(data, exec))
 	{
-		// mensagem de erro
-		ft_printf("%s \n", "tentou executar, mas falhou");
-		//dar free?
-		//setar o exit code?
-		exit(1);
+		if (execve(exec->cmd, exec->argv, data->env.envp) == -1)
+		{
+			// mensagem de erro
+			ft_printf("%s \n", "tentou executar, mas falhou");
+			//dar free?
+			//setar o exit code?
+			exit(1);
+		}
 	}
 }
 
@@ -77,7 +81,7 @@ static char	*ft_build_cmds(t_data *data, char *cmd)
 			ft_free_ptr((void **)&(full_path));
 			if (access(cmd_line, F_OK) == 0)
 				return (cmd_line);
-			free(cmd_line);
+			ft_free_ptr((void **)&(cmd_line));
 			i++;
 		}
 	}

@@ -15,10 +15,11 @@ SRCS = ./sources/minishell.c				\
 		./sources/env_table/env_utils.c		\
 		./sources/env_table/insert_item.c	\
 		./sources/env_table/get_item.c		\
-		./sources/free_env.c				\
+		./sources/free_mem/free_env.c		\
+		./sources/free_mem/free_data.c		\
 		./sources/tokenizer.c				\
 		./sources/executor.c				\
-
+		./sources/built_ins.c				\
 
 
 OBJS	= $(SRCS:%.c=%.o)
