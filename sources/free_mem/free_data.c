@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:55:47 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 18:36:11 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 13:15:48 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ void	ft_free_executor(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->exec.argv[i])
-		ft_free_ptr((void **)&data->exec.argv[i++]);
-	ft_free_ptr((void **)&data->exec.argv);
-	ft_free_ptr((void **)&data->exec.cmd);
+	while (data->exec->argv[i])
+		ft_free_ptr((void **)&data->exec->argv[i++]);
+	ft_free_ptr((void **)&data->exec->argv);
+	ft_free_ptr((void **)&data->exec->cmd);
+	free(data->exec);
+	data->exec = NULL;
 	ft_dellist(&data->pid_list);
 	data->pid_list = NULL;
 }
+

@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:24:55 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 17:13:13 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 12:38:33 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_exec(t_data *data)
 	pid_t	*pid;
 
 	//verificar se tem pipe ou builtin e fazer exec diferente
-	data->exec.cmd = ft_build_cmds(data, data->exec.argv[0]);
-	if (is_builtin(data, &data->exec) || !data->exec.argv[0]) // melhorar... se for pipe tem que continuar pq
+	data->exec->cmd = ft_build_cmds(data, data->exec->argv[0]);
+	if (is_builtin(data, data->exec) || !data->exec->argv[0]) // melhorar... se for pipe tem que continuar pq
 		return ;											// o built in não pode barrar as outras execs
 	pid = (pid_t *)malloc(sizeof(pid_t));
 	*pid = fork();
@@ -39,7 +39,7 @@ static void	ft_exec(t_data *data)
 	if (*pid == 0)
 	{
 		ft_free_ptr((void **)&pid);
-		ft_exec_child(data, &data->exec);
+		ft_exec_child(data, data->exec);
 	}
 	if (*pid != 0)
 	{

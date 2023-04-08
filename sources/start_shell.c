@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 13:56:54 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 12:57:41 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ int ft_start_shell(t_data *data)
 		// }
 		ft_free_data(data, FALSE);
 	}
-	return (SUCCESS_CODE);
+	return (data->exit_code);
 }
 
 static void	ft_init_data(t_data *data)
 {
 	data->buffer = NULL;
 	data->prompt = NULL;
+	data->pid_list = NULL;
+	data->exec = NULL;
 	data->pid_list = NULL;
 }
 
