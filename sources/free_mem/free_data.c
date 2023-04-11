@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 12:55:47 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/08 13:15:48 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:15:20 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	ft_free_executor(t_data *data)
 	free(data->exec);
 	data->exec = NULL;
 	ft_dellist(&data->pid_list);
-	data->pid_list = NULL;
 }
 

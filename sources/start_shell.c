@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:58:22 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/08 12:57:41 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 17:11:47 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_init_data(t_data *data);
 static void	ft_create_prompt(t_data *data);
 
-int ft_start_shell(t_data *data)
+int	ft_start_shell(t_data *data)
 {
 	while (1)
 	{

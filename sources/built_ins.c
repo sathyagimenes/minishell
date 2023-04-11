@@ -6,7 +6,7 @@
 /*   By: sde-cama <sde-cama@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:39:17 by sde-cama          #+#    #+#             */
-/*   Updated: 2023/04/07 17:18:28 by sde-cama         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:20:31 by sde-cama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_exec_exit(t_data *data)
 {
 	//melhorar essa func
 	ft_free_data(data, TRUE);
+	data = NULL;
 	ft_printf("exit\n");
 	exit(0);
 }
